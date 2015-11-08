@@ -1,0 +1,11 @@
+%div{'ng-controller' => 'CreateUsersController as vm', class: ["row", "col-xs-12", "col-md-6"]}
+  %div{class: ["panel panel-default"]}
+    .panel-heading
+      %h3.panel-title Create new user
+    .panel-body
+      %form{name: "form", 'ng-submit' => "form.$valid && vm.create()"}
+        %email-form{form: "form", model: "vm.newUser"}
+        %password-form{form: "form", model: "vm.newUser", 'include-confirmation' => "true"}
+        %button{'ng-disabled' => "form.$invalid", class: ["btn", "btn-primary"], type: "submit"} Create user
+        %a{'ui-sref' => "login"} Or login, if you have already created a user.
+%div{class: ["col-xs-0", "col-md-6"]}

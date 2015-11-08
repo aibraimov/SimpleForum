@@ -1,0 +1,33 @@
+# Ignore bundler config.
+/.bundle
+
+# Ignore the default SQLite database.
+/db/*.sqlite3
+/db/*.sqlite3-journal
+/db/sphinx/*
+/config/*.sphinx.conf
+# Ignore all logfiles and tempfiles.
+/log/*
+/log/*.log
+/log/*.pid
+/log/development.sphinx.pid
+/tmp
+/public
+/tmp/*
+/config/environment.rb
+/app/assets/images
+# Ignore other unneeded files.
+database.yml
+thinking_sphinx.yml
+/app/controllers/application_controller.rb
+doc/
+*.swp
+*~
+.project
+.DS_Store
+.idea
+.rvmrc
+.ruby-*
+.secret
+Gemfile.lock
+

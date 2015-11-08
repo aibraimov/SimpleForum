@@ -1,0 +1,16 @@
+.col-xs-3
+  .dropdown{'is-open' => "dropdownOpen"}
+    .input-group{'dropdown-toggle' => ""}
+      %input{type: "datetime", 'datetime-converter' => "", class: "form-control", 'data-ng-model': "jog.start_time", required: true}/
+      %span.input-group-addon
+        %i{class: ["fa", "fa-calendar", "fa-lg"]}
+    %ul.dropdown-menu
+      /https://github.com/dalelotts/angular-bootstrap-datetimepicker
+      %datetimepicker{'datetime-converter'=>"", 'data-ng-model' => "jog.start_time", 'on-set-time' => "closeDropdown()"}/
+.col-xs-2
+  %input.form-control{type: "decimal", step: "0.01", min: "0", max: "999", 'ng-model'=> "jog.distance_in_miles", 'float-converter' => "", required: true}/
+.col-xs-2
+  %input.form-control{type: "decimal", step: "0.01", min: "0", max: "999", 'ng-model' => "jog.time_in_hours", 'float-converter' => "", required: true}/
+.col-xs-2
+  {{ jog.distance_in_miles / jog.time_in_hours | number : 2 }}
+  &nbsp;

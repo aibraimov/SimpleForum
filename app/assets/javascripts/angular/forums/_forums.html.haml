@@ -1,0 +1,36 @@
+%div{'ng-controller' => "ForumsController as vm"}
+  %h3 Recent Forums
+  .btn-group{style: "margin-bottom: 10px;"}
+    %label{class: ["btn", "btn-default"], 'ng-model' => "vm.rangeDescriptor", 'btn-radio' => "'all'"} All
+    %label{class: ["btn", "btn-default"], 'ng-model' => "vm.rangeDescriptor", 'btn-radio' => "'today'"} Today
+    %label{class: ["btn", "btn-default"], 'ng-model' => "vm.rangeDescriptor", 'btn-radio' => "'pastWeek'"} Past Week
+    %label{class: ["btn", "btn-default"], 'ng-model' => "vm.rangeDescriptor", 'btn-radio' => "'pastMonth'"} Past Month
+  %div{class: ["panel", "panel-default", "col-xs-12"], 'ng-init' => 'vm.getForums(1)'}
+    %my-forum-pagination{:from => "vm.from_index", :to => "vm.to_index", :current_page => "vm.current_page", :total=> "vm.total_entries", :action => "vm.getForums(page)"}
+    %div{class: ["row", "panel-heading"]}
+      .col-xs-9 Title
+      .col-xs-3
+        %button{'ng-click' => "vm.new()", type: "button", class: "btn btn-success"}
+          %i{class: ["fa", "fa-plus-circle", "fa-lg"]} New
+    %ul.list-group
+      %span{'ng-if' => "vm.newForum"}
+        %li{class: ["list-group-item", "row"]}
+          %form.form-inline{'ng-submit' => "vm.create()"}
+            %forum-form{forum: "vm.newForum"}
+            .col-xs-3
+              %button{'ng-click' => "vm.newCancel()", class: "btn"} Cancel
+              %button{type: "submit", class: ["btn", "btn-primary"]} Create
+      %li{'ng-repeat' => "forum in vm.forums | dateRange:'start_time':vm.rangeDescriptor | orderBy: '-start_time'", class: "list-group-item row"}
+        %span{'ng-if' => "forum != vm.editedForumMarker"}
+          .col-xs-9 {{ forum.title }}
+          .col-xs-3
+            %button{'ng-click' => "vm.edit(forum)", type: "button", class: "btn"}
+              %i{class: ["fa", "fa-pencil", "fa-lg"]}
+            %button{'confirmed-click' => "vm.destroy(forum);", 'confirm-click' => "Are you sure?", type: "button", class: "btn btn-danger"}
+              %i{class: ["fa", "fa-trash-o", "fa-lg"]}
+        %span{'ng-if' => "forum == vm.editedForumMarker"}
+          %form.form-inline{'ng-submit' => "vm.update()"}
+            %forum-form{forum: "vm.clonedForum"}
+            .col-xs-3
+              %button{'ng-click' => "vm.editCancel()", class: "btn"} Cancel
+              %button{type: "submit", class: ["btn", "btn-primary"]} Save

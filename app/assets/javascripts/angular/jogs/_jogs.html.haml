@@ -1,0 +1,41 @@
+%div{'ng-controller' => "JogsController as vm"}
+  %h3 Recent Jogs
+  .btn-group{style: "margin-bottom: 10px;"}
+    %label{class: ["btn", "btn-default"], 'ng-model' => "vm.rangeDescriptor", 'btn-radio' => "'all'"} All
+    %label{class: ["btn", "btn-default"], 'ng-model' => "vm.rangeDescriptor", 'btn-radio' => "'today'"} Today
+    %label{class: ["btn", "btn-default"], 'ng-model' => "vm.rangeDescriptor", 'btn-radio' => "'pastWeek'"} Past Week
+    %label{class: ["btn", "btn-default"], 'ng-model' => "vm.rangeDescriptor", 'btn-radio' => "'pastMonth'"} Past Month
+  %div{class: ["panel", "panel-default", "col-xs-12"]}
+    %div{class: ["row", "panel-heading"]}
+      .col-xs-3 Start Time
+      .col-xs-2 Distance (Miles)
+      .col-xs-2 Time (Hours)
+      .col-xs-2 Average speed (mph)
+      .col-xs-3
+        %button{'ng-click' => "vm.new()", type: "button", class: "btn btn-success"}
+          %i{class: ["fa", "fa-plus-circle", "fa-lg"]} New
+    %ul.list-group
+      %span{'ng-if' => "vm.newJog"}
+        %li{class: ["list-group-item", "row"]}
+          %form.form-inline{'ng-submit' => "vm.create()"}
+            %jog-form{jog: "vm.newJog"}
+            .col-xs-3
+              %button{'ng-click' => "vm.newCancel()", class: "btn"} Cancel
+              %button{type: "submit", class: ["btn", "btn-primary"]} Create
+      %li{'ng-repeat' => "jog in vm.jogs | dateRange:'start_time':vm.rangeDescriptor | orderBy: '-start_time'", class: "list-group-item row"}
+        %span{'ng-if' => "jog != vm.editedJogMarker"}
+          .col-xs-3 {{ jog.start_time | date: 'short' }}
+          .col-xs-2 {{ jog.distance_in_miles | number : 2 }}
+          .col-xs-2 {{ jog.time_in_hours | number : 2 }}
+          .col-xs-2 {{ jog.distance_in_miles / jog.time_in_hours | number : 2 }}
+          .col-xs-3
+            %button{'ng-click' => "vm.edit(jog)", type: "button", class: "btn"}
+              %i{class: ["fa", "fa-pencil", "fa-lg"]}
+            %button{'confirmed-click' => "vm.destroy(jog)", 'confirm-click' => "Are you sure?", type: "button", class: "btn btn-danger"}
+              %i{class: ["fa", "fa-trash-o", "fa-lg"]}
+        %span{'ng-if' => "jog == vm.editedJogMarker"}
+          %form.form-inline{'ng-submit' => "vm.update()"}
+            %jog-form{jog: "vm.clonedJog"}
+            .col-xs-3
+              %button{'ng-click' => "vm.editCancel()", class: "btn"} Cancel
+              %button{type: "submit", class: ["btn", "btn-primary"]} Save

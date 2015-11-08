@@ -1,0 +1,12 @@
+%div{'ng-controller' => "GenericFormController as vm", class: "form-group"}
+  .form-group{'ng-class' => "vm.error('password')"}
+    %label.form-label{for: "password"} Password
+    .controls
+      %input#password{name: "password", type: "password", minlength: '6', 'ng-model' => "model.password", placeholder: "Password", required: true}/
+      .help-block{'ng-show' => "form.password.$invalid && form.password.$dirty", 'ng-messages' => "form.password.$error", 'ng-messages-include' => "angular/common/_ng-messages.html"}
+      %span{'ng-if' => "includeConfirmation"}
+        .form-group{'ng-class' => "vm.error('password_confirmation')"}
+          %label.form-label{for: "password_confirmation"} Password confirmation
+          .controls
+            %input#password_confirmation{name: "password_confirmation", type: "password", 'ng-model' => "model.password_confirmation", 'compare-to' => "model.password", placeholder: "Password confirmation", required: true}/
+            .help-block{'ng-show' => "form.password_confirmation.$invalid && form.password_confirmation.$dirty", 'ng-messages' => "form.password_confirmation.$error", 'ng-messages-include' => "angular/common/_ng-messages.html"}

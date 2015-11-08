@@ -1,0 +1,5 @@
+%div{'ng-controller' => "GenericFormController as vm", class: "form-group", 'ng-class' => "vm.error('email')"}
+	%label.form-label{for: "email"} Email
+	.controls
+		%input{id: 'email', name: 'email', type: "email", 'ng-model' => "model.email", placeholder: "Email", required: true}
+		.help-block{"ng-show" => "form.email.$invalid && form.email.$dirty", 'ng-messages' => "form.email.$error", 'ng-messages-include' => "angular/common/_ng-messages.html"}

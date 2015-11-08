@@ -1,0 +1,32 @@
+#content
+	.left.column
+		%h2	Welcome to our site!
+		%p= @print_information
+		%div{:class => ["fd", 1 != 2 && ["ha","dfd"] ]} dfdf
+	.right.column
+		= render :partial => "sidebar"
+= surround "(", ")" do
+	= link_to "learn more", "#"
+%br/
+= precede "*" do
+	%span Required
+%br/
+Begin by
+= succeed "," do
+	= link_to "filling out your profile", "#"
+= succeed "," do
+	= link_to "adding a bio", "#"
+and
+= succeed "." do
+	= link_to "inviting friends", "#"
+
+%br/
+
+%whoo
+	%hoo= h(                      |
+		"I think this might get " +  |
+		"pretty long so I should " + |
+		"probably make it " +        |
+		"multiline so it doesn't " + |
+		"look awful.")               |
+	%p This is short.
