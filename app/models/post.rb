@@ -1,6 +1,9 @@
 class Post
   include Mongoid::Document
-  belongs_to :user
+  include Mongoid::Timestamps
+
+  belongs_to :user, inverse_of: :posts
+  belongs_to :forum, inverse_of: :posts
 
   field :title, type: String
   field :description, type: String

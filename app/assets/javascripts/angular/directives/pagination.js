@@ -1,6 +1,6 @@
 (function (angular) {
   'use strict';
-  angular.module('app').directive('myForumPagination', myForumPagination);
+  angular.module('app').directive('myPagination', myForumPagination);
   function myForumPagination() {
 	  return {
 	      restrict: 'E',

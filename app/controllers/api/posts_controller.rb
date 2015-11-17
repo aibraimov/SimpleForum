@@ -1,30 +1,43 @@
-class Api::JogsController < ApiController
+class Api::PostsController < ApiController
   respond_to :json
   before_filter :set_user
+  before_filter :get_post, only: [:update, :destroy]
 
   def index
-    respond_with :api, @user.jogs.all
+    page = params[:page].present? ? params[:page] : 1
+    @posts = Post.all.paginate(:page => page, :per_page => 5)
+    @res = Paginator.pagination_attributes(@posts).merge!(:posts => @posts)
   end
 
   def create
-    respond_with :api, @user.jogs.create(jog_params), :location => nil
+    @post = @user.posts.create(post_params)
+    render "show"
   end
 
   def update
-    respond_with :api, @user.jogs.update(params[:id], jog_params)
+    respond_with :api, @post.update(post_params)
+    render "show"
   end
 
   def destroy
-    respond_with :api, @user.jogs.destroy(params[:id])
+    st = false
+    if @post.user == @user
+      st = @post.destroy
+    end
+    respond_with :api, st
   end
 
   private
+
+    def get_post
+      @post = Post.find(params[:id])
+    end
 
     def set_user
       @user = User.find(params[:user_id])
     end
 
-    def jog_params
-      params.require(:jog).permit(:start_time, :user_id, :distance_in_miles, :time_in_hours)
+    def post_params
+      params.require(:post).permit(:title, :description, :forum_id)
     end
 end

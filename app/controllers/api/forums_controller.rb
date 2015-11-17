@@ -3,19 +3,24 @@ class Api::ForumsController < ApiController
   before_filter :set_user
   before_filter :get_forum, only: [:update, :destroy]
 
+  def get_forums
+    respond_with :api, Forum.all
+  end
+
   def index
     page = params[:page].present? ? params[:page] : 1
-    @forums = Forum.all.paginate(:page => page, :per_page => 5)
+    @forums = Forum.all.paginate(:page => page, :per_page => 1000)
     @res = Paginator.pagination_attributes(@forums).merge!(:forums => @forums)
-    respond_with :api, @res.to_a
   end
 
   def create
-    respond_with :api, Forum.create(forum_params), :location => nil
+    @forum = Forum.create(forum_params)
+    render "show"
   end
 
   def update
-    respond_with :api, @forum.update(forum_params)
+    @forum.update(forum_params)
+    render "show"
   end
 
   def destroy

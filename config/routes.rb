@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       resources :jogs, only: [:index, :create, :update, :destroy]
       resources :forums, only: [:index, :create, :update, :destroy]
       resources :posts, only: [:index, :create, :update, :destroy]
+      get 'posts/get_forums', to: 'posts#get_forums'
     end
     post 'api_tokens', to: 'api_tokens#create'
     delete 'api_tokens', to: 'api_tokens#destroy'

@@ -25,14 +25,12 @@
             %span.icon-bar
             %span.icon-bar
           %a.navbar-brand{'ui-sref' => "jogs"}
-            = image_tag 'logo.png'
+            = image_tag 'logo.png', id: "logo"
           %ul{'ng-if' => "currentUser", class: ["nav", "navbar-nav", "navbar-left"]}
             %li<
+              %a{'ui-sref' => "posts"} Posts
+            %li<
               %a{'ui-sref' => "forums"} Forums
-            %li<
-              %a{'ui-sref' => "jogs"} Jogs
-            %li<
-              %a{'ui-sref' => "report"} Report
           %div{'ng-if' => "currentUser", class: ["navbar-collapse", "collapse", "navbar-responsive-collapse"]}
             %ul{class: ["nav", "navbar-nav", "navbar-right"]}
               %li<

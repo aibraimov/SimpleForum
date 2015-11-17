@@ -1,0 +1,7 @@
+.col-xs-3
+	%input.form-control{type: "text", 'ng-model'=> "post.title", required: true}/
+.col-xs-2
+	%select.form-control{type: "text", 'ng-model'=> "post.forum_id", required: true }
+		%option{'ng-repeat': "forum in forums", value: "{{forum.id}}"} {{forum.title}}
+.col-xs-4
+	%input.form-control{type: "text", 'ng-model'=> "post.description", required: true}/

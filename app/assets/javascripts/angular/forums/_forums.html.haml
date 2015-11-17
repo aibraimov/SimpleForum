@@ -2,11 +2,11 @@
   %h3 Recent Forums
   .btn-group{style: "margin-bottom: 10px;"}
     %label{class: ["btn", "btn-default"], 'ng-model' => "vm.rangeDescriptor", 'btn-radio' => "'all'"} All
-    %label{class: ["btn", "btn-default"], 'ng-model' => "vm.rangeDescriptor", 'btn-radio' => "'today'"} Today
+    %label{class: ["btn", "btn-default"], 'ng-model' => "vm.rangeDescriptor", 'btn-radio' => "'today'"} Hot
     %label{class: ["btn", "btn-default"], 'ng-model' => "vm.rangeDescriptor", 'btn-radio' => "'pastWeek'"} Past Week
     %label{class: ["btn", "btn-default"], 'ng-model' => "vm.rangeDescriptor", 'btn-radio' => "'pastMonth'"} Past Month
   %div{class: ["panel", "panel-default", "col-xs-12"], 'ng-init' => 'vm.getForums(1)'}
-    %my-forum-pagination{:from => "vm.from_index", :to => "vm.to_index", :current_page => "vm.current_page", :total=> "vm.total_entries", :action => "vm.getForums(page)"}
+    %my-pagination{:from => "vm.from_index", :to => "vm.to_index", :current_page => "vm.current_page", :total=> "vm.total_entries", :action => "vm.getForums(page)"}
     %div{class: ["row", "panel-heading"]}
       .col-xs-9 Title
       .col-xs-3
@@ -20,7 +20,7 @@
             .col-xs-3
               %button{'ng-click' => "vm.newCancel()", class: "btn"} Cancel
               %button{type: "submit", class: ["btn", "btn-primary"]} Create
-      %li{'ng-repeat' => "forum in vm.forums | dateRange:'start_time':vm.rangeDescriptor | orderBy: '-start_time'", class: "list-group-item row"}
+      %li{'ng-repeat' => "forum in vm.forums | dateRange:'created_at':vm.rangeDescriptor | orderBy: '-created_at'", class: "list-group-item row"}
         %span{'ng-if' => "forum != vm.editedForumMarker"}
           .col-xs-9 {{ forum.title }}
           .col-xs-3

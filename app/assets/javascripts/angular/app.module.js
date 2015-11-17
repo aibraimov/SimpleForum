@@ -5,6 +5,7 @@ angular.module('app',
     'templates',
     'ngMessages',
 
+    'app.posts',
     'app.forums',
     'app.jogs',
     'app.login',
@@ -17,6 +18,9 @@ angular.module('app.jogs', [
   'ngResource'
 ]);
 angular.module('app.forums', [
+  'ngResource',
+]);
+angular.module('app.posts', [
   'ngResource',
 ]);
 

@@ -10,15 +10,15 @@
     vm.forums = []
 
     vm.getForums = function(page){
-          forumResource.query({method: 'GET', isArray: false, page: page })
-          .$promise.then(function(response){
-              vm.total_entries = response[0][1]
-              vm.current_page = parseInt(response[1][1])
-              vm.to_index = response[2][1]
-              vm.from_index = response[3][1]
-              vm.forums = response[4][1]
-            });
-      }
+      forumResource.query({method: 'GET', isArray: false, page: page })
+      .$promise.then(function(response){
+        vm.total_entries = response.total_entries
+        vm.current_page = parseInt(response.current_page)
+        vm.to_index = response.to_index
+        vm.from_index = response.from_index
+        vm.forums = response.forums
+      });
+    }
 
     vm.rangeDescriptor = 'all';
 
