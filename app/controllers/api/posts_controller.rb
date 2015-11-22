@@ -5,17 +5,30 @@ class Api::PostsController < ApiController
 
   def index
     page = params[:page].present? ? params[:page] : 1
-    @posts = Post.all.paginate(:page => page, :per_page => 5)
+    if !params[:forum_id].blank?
+      where = "forum_id = #{params[:forum_id]}"
+    end
+    if !params[:tag_id].blank?
+      where = "tag_id = #{params[:tag_id]}"
+    end
+    if !params[:forum_id].blank?
+      @posts = Post.where(forum_id: params[:forum_id]).paginate(:page => page, :per_page => 20)
+    elsif !params[:tag_id].blank?
+      @posts = Tag.find(params[:tag_id]).posts.paginate(:page => page, :per_page => 20)
+    else
+      @posts = Post.all.paginate(:page => page, :per_page => 20)
+    end
     @res = Paginator.pagination_attributes(@posts).merge!(:posts => @posts)
   end
 
   def create
     @post = @user.posts.create(post_params)
+    @post.save
     render "show"
   end
 
   def update
-    respond_with :api, @post.update(post_params)
+    @post.update(post_params)
     render "show"
   end
 
@@ -29,15 +42,18 @@ class Api::PostsController < ApiController
 
   private
 
-    def get_post
-      @post = Post.find(params[:id])
-    end
+  def get_post
+    @post = Post.find(params[:id])
+  end
 
-    def set_user
-      @user = User.find(params[:user_id])
-    end
+  def set_user
+    @user = User.find(params[:user_id])
+  end
 
-    def post_params
-      params.require(:post).permit(:title, :description, :forum_id)
-    end
+  def post_params
+    params.require(:post).permit(:title, :description, :forum_id, :tag_ids => [])
+  end
+
 end
+
+

@@ -29,15 +29,15 @@ class Api::ForumsController < ApiController
 
   private
 
-    def get_forum
-      @forum = Forum.find(params[:id])
-    end
+  def get_forum
+    @forum = Forum.find(params[:id])
+  end
 
-    def set_user
-      @user = User.find(params[:user_id])
-    end
+  def set_user
+    @user = User.find(params[:user_id])
+  end
 
-    def forum_params
-      params.require(:forum).permit(:title)
-    end
+  def forum_params
+    params.require(:forum).permit(:title)
+  end
 end

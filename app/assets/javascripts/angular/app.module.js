@@ -10,7 +10,9 @@ angular.module('app',
     'app.jogs',
     'app.login',
     'app.report',
-    'app.users'
+    'app.users',
+    'app.tags',
+    'app.answers',
   ]);
 
 angular.module('app.jogs', [
@@ -21,6 +23,14 @@ angular.module('app.forums', [
   'ngResource',
 ]);
 angular.module('app.posts', [
+  'ngResource',
+  'ngLodash',
+  'isteven-multi-select'
+]);
+angular.module('app.tags', [
+  'ngResource',
+]);
+angular.module('app.answers', [
   'ngResource',
 ]);
 

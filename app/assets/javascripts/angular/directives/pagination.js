@@ -13,15 +13,15 @@
 	      },
 	      controller: ["$scope", function($scope){
 	      $scope.previousPage = function(){
-	          $scope.currentPage -= 1
-	          $scope.action({page: $scope.currentPage})
-	      }
+	          $scope.currentPage -= 1;
+	          $scope.action({page: $scope.currentPage});
+	      };
 	      $scope.nextPage = function(){
-	          $scope.currentPage += 1
-	          $scope.action({page: $scope.currentPage})
-	      }
+	          $scope.currentPage += 1;
+	          $scope.action({page: $scope.currentPage});
+	      };
 	      }],
 	      templateUrl: "angular/templates/paginationElements.html"
-	  }
+	  };
     }
 })(angular);

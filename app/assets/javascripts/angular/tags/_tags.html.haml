@@ -1,0 +1,38 @@
+%div{'ng-controller' => "TagsController as vm"}
+  %h3 Recent Tags
+  .btn-group{style: "margin-bottom: 10px;"}
+    %label{class: ["btn", "btn-default"], 'ng-model' => "vm.rangeDescriptor", 'btn-radio' => "'all'"} All
+    %label{class: ["btn", "btn-default"], 'ng-model' => "vm.rangeDescriptor", 'btn-radio' => "'today'"} Hot
+    %label{class: ["btn", "btn-default"], 'ng-model' => "vm.rangeDescriptor", 'btn-radio' => "'pastWeek'"} Past Week
+    %label{class: ["btn", "btn-default"], 'ng-model' => "vm.rangeDescriptor", 'btn-radio' => "'pastMonth'"} Past Month
+  %div{class: ["panel", "panel-default", "col-xs-12"], 'ng-init' => 'vm.getTags(1)'}
+    %my-pagination{:from => "vm.from_index", :to => "vm.to_index", :current_page => "vm.current_page", :total=> "vm.total_entries", :action => "vm.getTags(page)"}
+    %div{class: ["row", "panel-heading"]}
+      .col-xs-5 Title
+      .col-xs-4 Description
+      .col-xs-3
+        %button{'ng-click' => "vm.new()", type: "button", class: "btn btn-success"}
+          %i{class: ["fa", "fa-plus-circle", "fa-lg"]} New
+    %ul.list-group
+      %span{'ng-if' => "vm.newTag"}
+        %li{class: ["list-group-item", "row"]}
+          %form.form-inline{'ng-submit' => "vm.create()"}
+            %tag-form{tag: "vm.newTag"}
+            .col-xs-3
+              %button{'ng-click' => "vm.newCancel()", class: "btn"} Cancel
+              %button{type: "submit", class: ["btn", "btn-primary"]} Create
+      %li{'ng-repeat' => "tag in vm.tags | dateRange:'created_at':vm.rangeDescriptor | orderBy: '-created_at'", class: "list-group-item row"}
+        %span{'ng-if' => "tag != vm.editedTagMarker"}
+          %a.col-xs-5{'ui-sref'=> "posts.tag({ tagId: tag.id })"} {{ tag.title }}
+          .col-xs-4 {{ tag.description }}
+          .col-xs-3
+            %button{'ng-click' => "vm.edit(tag)", type: "button", class: "btn"}
+              %i{class: ["fa", "fa-pencil", "fa-lg"]}
+            %button{'confirmed-click' => "vm.destroy(tag);", 'confirm-click' => "Are you sure?", type: "button", class: "btn btn-danger"}
+              %i{class: ["fa", "fa-trash-o", "fa-lg"]}
+        %span{'ng-if' => "tag == vm.editedTagMarker"}
+          %form.form-inline{'ng-submit' => "vm.update()"}
+            %tag-form{tag: "vm.clonedTag"}
+            .col-xs-3
+              %button{'ng-click' => "vm.editCancel()", class: "btn"} Cancel
+              %button{type: "submit", class: ["btn", "btn-primary"]} Save

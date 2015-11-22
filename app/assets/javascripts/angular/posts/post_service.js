@@ -17,12 +17,19 @@
       return $resource('/api/users/:user_id/forums/:id.json', { id: '@id', user_id: user.user_id }, {
         query: {isArray: false},
       });
-    }
+    };
+
+    var resourceForTag = function(user) {
+      return $resource('/api/users/:user_id/tags/:id.json', { id: '@id', user_id: user.user_id }, {
+        query: {isArray: false},
+      });
+    };
 
     return {
       resourceForUser: resourceForUser,
-      resourceForForum: resourceForForum
-    }
+      resourceForForum: resourceForForum,
+      resourceForTag: resourceForTag
+    };
   }
 
 })();

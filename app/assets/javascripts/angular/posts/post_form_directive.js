@@ -9,10 +9,11 @@
       controller: 'PostFormController',
       scope: {
         post: '=post',
-        forums: '=forums'
+        forums: '=forums',
+        tags: "=tags",
       },
       templateUrl: 'angular/posts/_form.html'
-    }
+    };
   }
 
 })();

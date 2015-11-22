@@ -22,7 +22,7 @@
 //= require angular-messages
 //= require angular-resource
 //= require angular-rails-templates
-
+//= require ng-lodash/build/ng-lodash.min.js
 //= require angular-ui-bootstrap-tpls
 //= require vendor
 //= require_tree .

@@ -6,6 +6,8 @@ class User
   has_many :jogs
   has_many :api_tokens
   has_many :posts, inverse_of: :user
+  has_many :answers, inverse_of: :user
+  has_many :comments, inverse_of: :user
 
   has_secure_password
   validates_presence_of :email

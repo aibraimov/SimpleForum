@@ -20,11 +20,11 @@ class Api::JogsController < ApiController
 
   private
 
-    def set_user
-      @user = User.find(params[:user_id])
-    end
+  def set_user
+    @user = User.find(params[:user_id])
+  end
 
-    def jog_params
-      params.require(:jog).permit(:start_time, :user_id, :distance_in_miles, :time_in_hours)
-    end
+  def jog_params
+    params.require(:jog).permit(:start_time, :user_id, :distance_in_miles, :time_in_hours)
+  end
 end

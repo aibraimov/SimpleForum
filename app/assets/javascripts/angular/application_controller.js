@@ -7,7 +7,7 @@
 
     $rootScope.currentUserService = currentUserService;
     $rootScope.$watch(function () {
-      return currentUserService.getCurrentUser()
+      return currentUserService.getCurrentUser();
     }, function (newVal, oldVal) {
       $rootScope.currentUser = newVal;
     });

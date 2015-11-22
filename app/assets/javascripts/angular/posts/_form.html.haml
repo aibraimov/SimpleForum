@@ -4,4 +4,5 @@
 	%select.form-control{type: "text", 'ng-model'=> "post.forum_id", required: true }
 		%option{'ng-repeat': "forum in forums", value: "{{forum.id}}"} {{forum.title}}
 .col-xs-4
-	%input.form-control{type: "text", 'ng-model'=> "post.description", required: true}/
+	%div{'isteven-multi-select': '', 'input-model': "tags", 'output-model': "post.out_tags",
+	'button-label': "title", 'item-label': "bold_title description", 'tick-property': "ticked"}

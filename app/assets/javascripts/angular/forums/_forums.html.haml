@@ -22,7 +22,7 @@
               %button{type: "submit", class: ["btn", "btn-primary"]} Create
       %li{'ng-repeat' => "forum in vm.forums | dateRange:'created_at':vm.rangeDescriptor | orderBy: '-created_at'", class: "list-group-item row"}
         %span{'ng-if' => "forum != vm.editedForumMarker"}
-          .col-xs-9 {{ forum.title }}
+          %a.col-xs-9{'ui-sref'=> "posts.forum({ forumId: forum.id })"} {{ forum.title }}
           .col-xs-3
             %button{'ng-click' => "vm.edit(forum)", type: "button", class: "btn"}
               %i{class: ["fa", "fa-pencil", "fa-lg"]}

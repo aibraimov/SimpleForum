@@ -7,7 +7,7 @@
     $stateProvider.state('login', {
       url: '/login',
       templateUrl: 'angular/login/_form.html'
-    })
+    });
   }
 
 })();

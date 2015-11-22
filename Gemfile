@@ -18,6 +18,7 @@ gem 'font-awesome-rails'
 # Use SCSS for stylesheets
 gem 'sass-rails'
 gem 'haml'
+gem 'haml-rails'
 
 # CSS libraries
 gem 'twitter-bootstrap-rails'
