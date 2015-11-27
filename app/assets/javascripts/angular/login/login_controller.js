@@ -19,7 +19,7 @@
           $scope.currentUserService.setCurrentUser(result.data);
 
           $scope.showAlert('Logged in successfully.');
-          $state.go('jogs');
+          $state.go('posts');
 
         }, function (err) {
           $scope.showAlert('Incorrect email or password.', 'danger');

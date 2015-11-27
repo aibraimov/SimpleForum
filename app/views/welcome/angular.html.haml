@@ -17,6 +17,7 @@
     = favicon_link_tag 'favicon.ico', :rel => 'shortcut icon'
     = javascript_include_tag "application"
   %body{'data-ng-app' => 'app', 'ng-controller' => "ApplicationController"}
+    %base{'href': "/#/posts"}
     .navbar.navbar-default.navbar-static-top
       .max-width-940.container-fluid
         .row-fluid
