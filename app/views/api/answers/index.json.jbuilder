@@ -12,5 +12,6 @@ json.answers @answers do |answer|
       json.id comment.user.id.to_s
     end
   end
+  json.post_user_id answer.post.user.id.to_s
   json.id answer._id.to_s
 end

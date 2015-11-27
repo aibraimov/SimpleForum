@@ -73,7 +73,7 @@
                 %i{class: ["fa", "fa-caret-down", "fa-lg"]}
               %br/
               %br/
-              %button.btn{'ng-click' => "vm.setTrue(answer);", type: "button", 'ng-class': "{'btn-default': answer.is_true == 'false', 'btn-success': answer.is_true == true}", 'ng-disabled': "answer.is_true == true"}
+              %button.btn{'ng-click' => "vm.setTrue(answer);", type: "button", 'ng-class': "{'btn-default': answer.is_true == 'false', 'btn-success': answer.is_true == true}", 'ng-disabled': "answer.is_true == true", 'ng-if': "answer.is_true == true || answer.post_user_id == vm.user_id"} 
                 %i{class: ["fa", "fa-check", "fa-lg"]}
             .col-xs-11
               %p{'ng-bind-html': "answer.title | sanitize"}

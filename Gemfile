@@ -5,12 +5,12 @@ ruby "2.2.1"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'
 gem 'bcrypt'
-
+gem 'thin'
 # Use sqlite3 as the database for Active Record
 #gem 'pg'
-gem 'mongoid'
+gem 'mongoid', '5.0.1'
 gem 'devise'
-gem 'bson_ext'
+#sgem 'bson_ext'
 gem 'kaminari'
 gem 'will_paginate_mongoid'
 gem 'font-awesome-rails'

@@ -15,7 +15,6 @@
 /public
 /tmp/*
 /config/environment.rb
-/app/assets/images
 # Ignore other unneeded files.
 database.yml
 thinking_sphinx.yml

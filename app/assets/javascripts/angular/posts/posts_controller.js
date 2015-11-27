@@ -32,7 +32,10 @@
 
 
     vm.getPost = function() {
-      vm.post = postResource.query({method: 'GET', isArray: false, id: post_id });
+      postResource.query({method: 'GET', isArray: false, id: post_id })
+      .$promise.then(function(response){
+        vm.post = response;
+      });
     };
 
     vm.rangeDescriptor = 'all';
