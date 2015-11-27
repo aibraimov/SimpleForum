@@ -27,6 +27,9 @@ class Api::PostsController < ApiController
   end
 
   def update
+    if params[:post][:tag_ids].blank?
+      params[:post][:tag_ids] = nil
+    end
     @post.update(post_params)
     render "show"
   end
