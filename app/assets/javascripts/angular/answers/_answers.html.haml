@@ -79,7 +79,7 @@
               %p{'ng-bind-html': "answer.title | sanitize"}
           %br/
           .row
-            .col-xs-3{class: "pull-right"}
+            .col-xs-4{class: "pull-right"}
               %button{'ng-click' => "vm.edit(answer)", type: "button", class: "btn", 'ng-if': "answer.user.id == vm.user_id"}
                 %i{class: ["fa", "fa-pencil", "fa-lg"]}
               %button{'confirmed-click' => "vm.destroy(answer);", 'confirm-click' => "Are you sure?", type: "button", class: "btn btn-danger", 'ng-if': "answer.user.id == vm.user_id"}
