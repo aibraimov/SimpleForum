@@ -37,8 +37,8 @@
             %ul{class: ["nav", "navbar-nav", "navbar-right"]}
               %li<
                 %p.navbar-text<
-                  %a{'ui-sref': "users({userId: currentUser.id})"}
-                    %i{class: ["fa", "fa-user", "fa-lg"]} {{ currentUser.email }}  
+                  %a{'ui-sref': "users({userId: currentUser.user_id})"}
+                    %i{class: ["fa", "fa-user", "fa-lg"]} {{ currentUser.email }}  {{currentUser.rating}}
               %li<
                 %a{style: "cursor: pointer;", 'ng-controller' => 'LoginController as lc', 'ng-click' => "lc.logout()"} Logout
     .max-width-940.container-fluid

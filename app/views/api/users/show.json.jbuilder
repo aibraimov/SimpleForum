@@ -1,4 +1,5 @@
-json.extract! @user, :email, :created_at, :updated_at, :_id
+json.extract! @user, :email, :created_at, :updated_at, :_id, :rating
+json.user_posts_num @user.posts.size
 json.id @user.id.to_s
 user_tags = []
 json.posts @user.posts.limit(5) do |post|

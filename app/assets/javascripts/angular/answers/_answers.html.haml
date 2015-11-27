@@ -105,7 +105,7 @@
                     %i{class: ["fa", "fa-pencil", "fa-lg"]}
                   %button{'confirmed-click' => "vm.destroyComment(answer, comment);", 'confirm-click' => "Are you sure?", type: "button", class: "btn btn-danger", 'ng-if': "comment.user.id == vm.user_id"}
                     %i{class: ["fa", "fa-trash-o", "fa-lg"]}
-                  %a{'ui-sref': "users({userId: vm.comment.user.id})", class: "pull-right", style: "display: block; text-align: center;"}
+                  %a{'ui-sref': "users({userId: comment.user.id})", class: "pull-right", style: "display: block; text-align: center;"}
                     {{comment.user.email}}
 
               %span{'ng-if' => "comment == vm.editedCommentMarker"}

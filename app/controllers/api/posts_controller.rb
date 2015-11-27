@@ -21,6 +21,8 @@ class Api::PostsController < ApiController
   def create
     @post = @user.posts.create(post_params)
     @post.save
+    @user.rating += 1
+    @user.save
     render "show"
   end
 
@@ -40,6 +42,9 @@ class Api::PostsController < ApiController
 
   def like_post
     st = false
+    post_user = @post.user
+    post_user.rating += 1
+    post_user.save
     user_id = @user.id.to_s
     if @post.user_dislikes.include? user_id
       @post.user_dislikes.delete user_id

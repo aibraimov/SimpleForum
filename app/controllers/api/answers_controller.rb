@@ -8,6 +8,8 @@ class Api::AnswersController < ApiController
   end
 
   def create
+    @user.rating += 1
+    @user.save
     @answer = @user.answers.create(answer_params)
     @answer.save
     render "show"
@@ -28,6 +30,9 @@ class Api::AnswersController < ApiController
 
   def like_answer
     st = false
+    answer_user = @answer.user
+    answer_user.rating += 1
+    answer_user.save
     user_id = @user.id.to_s
     if @answer.user_dislikes.include? user_id
       @answer.user_dislikes.delete user_id
@@ -55,6 +60,10 @@ class Api::AnswersController < ApiController
   end
 
   def set_true
+    answer_user = @answer.user
+    answer_user.rating += 10
+    answer_user.save
+
     post = @answer.post
     post.is_true = true
     st &&= post.save

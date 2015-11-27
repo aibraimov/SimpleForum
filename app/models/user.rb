@@ -15,4 +15,5 @@ class User
 
   field :email, type: String, default: ""
   field :password_digest, type: String, default: ""
+  field :rating, type: Integer, default: 0
 end

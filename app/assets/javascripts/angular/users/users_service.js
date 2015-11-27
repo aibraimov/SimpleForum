@@ -25,7 +25,7 @@
     }
 
     function getUser(user) {
-      return $resource('/api/users/:user_id.json', { user_id: user.user_id }, {
+      return $resource('/api/users/:user_id.json', { user_id: user }, {
         query: {isArray: false},
       });
     }

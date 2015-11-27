@@ -9,9 +9,8 @@
     var user_id = $scope.currentUserService.getCurrentUser().user_id;
     vm.user_id = user_id;
     
-    var getUser = usersService.getUser($scope.currentUserService.getCurrentUser());
+    var getUser = usersService.getUser(page_user_id);
     vm.user = getUser.query();
-    console.log(vm.user);
 
     vm.rangeDescriptor = 'all';
 
