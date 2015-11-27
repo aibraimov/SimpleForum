@@ -1,0 +1,34 @@
+%div{'ng-controller' => "UsersController as vm"}
+	%img{class: "media-object", 'data-src': "holder.js/64x64", alt: "64x64", style: "float: left; width: 64px; height: 64px;", src: "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTE0NjUwNWY2MiB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1MTQ2NTA1ZjYyIj48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxMy40NzY1NjI1IiB5PSIzNi41Ij42NHg2NDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==", 'data-holder-rendered': "true"}
+	%span{style: "padding: 20px 0 0 10px; font-size: 20px;"} {{vm.user.email}}
+
+	%div{style: "clear: both"}
+	.row
+		.col-xs-6
+			%h4 Questions
+			%hr
+			%ul
+				%li{'ng-repeat' => "post in vm.user.posts", class: "list-group-item row"}
+					%span
+						.col-xs-2
+							%button{type: "button", class: "btn", 'ng-class': "{'btn-success': post.is_true == true}"} {{post.user_likes.length - post.user_dislikes.length}}
+						%a.col-xs-10{'ui-sref'=> "answers({ postId: post.id })"} {{ post.title }}
+		.col-xs-6
+			%h4 Answers
+			%hr
+			%ul
+				%li{'ng-repeat' => "answer in vm.user.answers", class: "list-group-item row"}
+					%span
+						.col-xs-2
+							%button{type: "button", class: "btn", 'ng-class': "{'btn-success': answer.is_true == true}"} {{answer.user_likes.length - answer.user_dislikes.length}}
+						%a.col-xs-10{'ui-sref'=> "answers({ postId: answer.post_id })"} 
+							%p{'ng-bind-html': "answer.title | sanitize"}
+	%div{style: "clear: both"}
+	.row
+		.col-xs-6
+			%h4 Tags
+			%hr
+			%ul
+				%li{'ng-repeat' => "tag in vm.user.tags", class: "list-group-item row"}
+					%a{'ui-sref'=> "posts.tag({ tagId: tag.id })"}
+						%span{class: ["label", "label-warning"], style: "margin-right: 5px;"} {{tag.title}}

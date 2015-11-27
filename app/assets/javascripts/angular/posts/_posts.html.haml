@@ -8,10 +8,10 @@
   %div{class: ["panel", "panel-default", "col-xs-12"], 'ng-init' => 'vm.getPosts(1)'}
     %my-pagination{:from => "vm.from_index", :to => "vm.to_index", :current_page => "vm.current_page", :total=> "vm.total_entries", :action => "vm.getPosts(page)"}
     %div{class: ["row", "panel-heading"]}
-      .col-xs-3 Title
+      .col-xs-5 Title
       .col-xs-2 Forums
-      .col-xs-4 Tags
-      .col-xs-3
+      .col-xs-3 Tags
+      .col-xs-2
         %button{'ng-click' => "vm.new()", type: "button", class: "btn btn-success"}
           %i{class: ["fa", "fa-plus-circle", "fa-lg"]} New
     %ul.list-group
@@ -19,20 +19,26 @@
         %li{class: ["list-group-item", "row"]}
           %form.form-inline{'ng-submit' => "vm.create()"}
             %post-form{post: "vm.newPost", forums: "vm.forums", tags: "vm.tags"}
-            .col-xs-3
+            .col-xs-2
               %button{'ng-click' => "vm.newCancel()", class: "btn"} Cancel
               %button{type: "submit", class: ["btn", "btn-primary"]} Create
       %li{'ng-repeat' => "post in vm.posts | dateRange:'created_at':vm.rangeDescriptor | orderBy: '-created_at'", class: "list-group-item row"}
         %span{'ng-if' => "post != vm.editedPostMarker"}
-          %a.col-xs-3{'ui-sref'=> "answers({ postId: post.id })"} {{ post.title }}
+          %a.col-xs-5{'ui-sref'=> "answers({ postId: post.id })"}
+            %button.btn{'ng-click' => "vm.setTrue(answer);", type: "button", 'ng-class': "{'btn-default': post.is_true == 'false', 'btn-success': post.is_true == true}", 'ng-disabled': "answer.is_true == true"}
+              {{post.user_likes.length - post.user_dislikes.length}}
+            {{ post.title }}
           .col-xs-2 {{ post.forum.title }}
-          .col-xs-4
-            %span{'ng-repeat' => "tag in post.tags", class: ["label", "label-warning"], style: "margin-right: 5px;"} {{tag.title}}
           .col-xs-3
-            %button{'ng-click' => "vm.edit(post)", type: "button", class: "btn"}
+            %span{'ng-repeat' => "tag in post.tags", class: ["label", "label-warning"], style: "margin-right: 5px;display: inline-block;"}
+              %a{'ui-sref'=> "posts.tag({ tagId: tag.id })", style: "color: white;"} {{tag.title}}
+          .col-xs-2
+            %button{'ng-click' => "vm.edit(post)", type: "button", class: "btn", 'ng-if': "post.user.id == vm.user_id"}
               %i{class: ["fa", "fa-pencil", "fa-lg"]}
-            %button{'confirmed-click' => "vm.destroy(post);", 'confirm-click' => "Are you sure?", type: "button", class: "btn btn-danger"}
+            %button{'confirmed-click' => "vm.destroy(post);", 'confirm-click' => "Are you sure?", type: "button", class: "btn btn-danger", 'ng-if': "post.user.id == vm.user_id"}
               %i{class: ["fa", "fa-trash-o", "fa-lg"]}
+            %a{'ui-sref': "users({userId: post.user.id})", class: "pull-right well well-sm", style: "display: block; text-align: center;", 'ng-if': "post.user.id != vm.user_id"}
+              {{post.user.email}}
         %span{'ng-if' => "post == vm.editedPostMarker"}
           %form.form-inline{'ng-submit' => "vm.update()"}
             %post-form{post: "vm.clonedPost", forums: "vm.forums", tags: "vm.tags"}

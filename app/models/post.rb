@@ -9,6 +9,9 @@ class Post
 
   field :title, type: String
   field :description, type: String
+  field :user_likes, type: Array
+  field :user_dislikes, type: Array
+  field :is_true, type: Boolean
 
   validates_uniqueness_of :title
   validates_presence_of :title

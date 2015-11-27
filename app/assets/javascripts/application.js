@@ -13,7 +13,8 @@
 
 // We need jQuery for odds and ends.
 //= require jquery
-
+//= require jquery_ujs
+//= require ckeditor-jquery
 //= require moment
 
 //= require twitter/bootstrap
@@ -24,5 +25,8 @@
 //= require angular-rails-templates
 //= require ng-lodash/build/ng-lodash.min.js
 //= require angular-ui-bootstrap-tpls
+//= require angular-ckeditor/angular-ckeditor.min.js
+//= require angular-sanitize/angular-sanitize.min.js
 //= require vendor
+//= require angular/app.module
 //= require_tree .

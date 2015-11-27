@@ -5,8 +5,7 @@
     %label{class: ["btn", "btn-default"], 'ng-model' => "vm.rangeDescriptor", 'btn-radio' => "'today'"} Hot
     %label{class: ["btn", "btn-default"], 'ng-model' => "vm.rangeDescriptor", 'btn-radio' => "'pastWeek'"} Past Week
     %label{class: ["btn", "btn-default"], 'ng-model' => "vm.rangeDescriptor", 'btn-radio' => "'pastMonth'"} Past Month
-  %div{class: ["panel", "panel-default", "col-xs-12"], 'ng-init' => 'vm.getTags(1)'}
-    %my-pagination{:from => "vm.from_index", :to => "vm.to_index", :current_page => "vm.current_page", :total=> "vm.total_entries", :action => "vm.getTags(page)"}
+  %div{class: ["panel", "panel-default", "col-xs-12"]}
     %div{class: ["row", "panel-heading"]}
       .col-xs-5 Title
       .col-xs-4 Description

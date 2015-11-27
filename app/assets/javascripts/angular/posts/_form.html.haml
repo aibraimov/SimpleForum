@@ -1,8 +1,32 @@
-.col-xs-3
-	%input.form-control{type: "text", 'ng-model'=> "post.title", required: true}/
+.col-xs-5
+	%input.form-control{type: "text", 'ng-model'=> "post.title", required: true, style: "width: 100%;"}/
 .col-xs-2
 	%select.form-control{type: "text", 'ng-model'=> "post.forum_id", required: true }
-		%option{'ng-repeat': "forum in forums", value: "{{forum.id}}"} {{forum.title}}
-.col-xs-4
+		%option{'ng-repeat': "forum in forums", 'ng-selected': "post.forum_id == forum.id", value: "{{forum.id}}"} {{forum.title}}
+.col-xs-3
 	%div{'isteven-multi-select': '', 'input-model': "tags", 'output-model': "post.out_tags",
 	'button-label': "title", 'item-label': "bold_title description", 'tick-property': "ticked"}
+%br/
+.col-xs-12
+	%h4 description
+	%div{ckeditor: "options", 'ng-model': "post.description"}
+%br{style: "clear: both;"}/
+%div{style: "padding: 20px; margin-top: 10px;clear:"}
+	%figure{class: ["well", "well-lg"]}
+		.row
+		%h4 
+			%b This is how it will look
+		.row
+			.col-xs-12
+				%h4 {{ post.title }}
+				%hr
+		%br/
+		.row
+			.col-xs-12
+				%p{'ng-bind-html': "post.description | sanitize"}
+		.row
+			.col-xs-1
+				%span{class: ["label", "label-primary"]}{{ post.forum.title }}
+			.col-xs-4
+				%span{'ng-repeat' => "tag in post.tags", class: ["label", "label-warning"], style: "margin-right: 5px;"} {{tag.title}}
+			.col-xs-3{class: "pull-right"}

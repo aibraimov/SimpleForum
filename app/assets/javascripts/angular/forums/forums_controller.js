@@ -7,25 +7,14 @@
     var vm = this;
 
     var forumResource = forumService.resourceForUser($scope.currentUserService.getCurrentUser());
-    vm.forums = []
-
-    vm.getForums = function(page){
-      forumResource.query({method: 'GET', isArray: false, page: page })
-      .$promise.then(function(response){
-        vm.total_entries = response.total_entries
-        vm.current_page = parseInt(response.current_page)
-        vm.to_index = response.to_index
-        vm.from_index = response.from_index
-        vm.forums = response.forums
-      });
-    }
+    vm.forums = forumResource.query();
 
     vm.rangeDescriptor = 'all';
 
     vm.new = function () {
       var now = new Date();
       vm.newForum = {
-      }
+      };
     };
 
     vm.newCancel = function () {

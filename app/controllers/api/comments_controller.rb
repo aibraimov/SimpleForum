@@ -5,7 +5,6 @@ class Api::CommentsController < ApiController
 
   def index
     @comments = Answer.find(params[:answer_id]).comments
-    @res = Paginator.pagination_attributes(@comments).merge!(:comments => @comments)
   end
 
   def create

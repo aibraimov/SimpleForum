@@ -1,11 +1,9 @@
 module Mongoid
-  module Document   
-
-    def serializable_hash(options={})
-      attrs = super
-      attrs['id'] = attrs['_id'].to_s
-      attrs
+  module Document
+    def serializable_hash(options = nil)
+      h = super(options)
+      h['id'] = h['_id'].to_s if(h.has_key?('_id'))
+      h
     end
-
   end
 end

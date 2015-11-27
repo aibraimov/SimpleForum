@@ -8,18 +8,7 @@
 
     var tagResource = tagService.resourceForUser($scope.currentUserService.getCurrentUser());
 
-    vm.tags = [];
-
-    vm.getTags = function(page){
-      tagResource.query({method: 'GET', isArray: false, page: page })
-      .$promise.then(function(response){
-        vm.total_entries = response.total_entries;
-        vm.current_page = parseInt(response.current_page);
-        vm.to_index = response.to_index;
-        vm.from_index = response.from_index;
-        vm.tags = response.tags;
-      });
-    };
+    vm.tags = tagResource.query();
 
     vm.rangeDescriptor = 'all';
 

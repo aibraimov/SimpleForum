@@ -21,7 +21,7 @@
 	          $scope.action({page: $scope.currentPage});
 	      };
 	      }],
-	      templateUrl: "angular/templates/paginationElements.html"
+	      templateUrl: "angular/components/directives/pagination_form/paginationElements.html"
 	  };
     }
 })(angular);

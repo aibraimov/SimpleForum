@@ -4,6 +4,7 @@ angular.module('app',
     'ui.router',
     'templates',
     'ngMessages',
+    'ngSanitize',
 
     'app.posts',
     'app.forums',
@@ -12,7 +13,7 @@ angular.module('app',
     'app.report',
     'app.users',
     'app.tags',
-    'app.answers',
+    'app.answers'
   ]);
 
 angular.module('app.jogs', [
@@ -25,7 +26,8 @@ angular.module('app.forums', [
 angular.module('app.posts', [
   'ngResource',
   'ngLodash',
-  'isteven-multi-select'
+  'isteven-multi-select',
+  'ckeditor'
 ]);
 angular.module('app.tags', [
   'ngResource',

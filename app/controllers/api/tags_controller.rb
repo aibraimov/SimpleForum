@@ -3,9 +3,7 @@ class Api::TagsController < ApiController
   before_filter :get_tag, only: [:update, :destroy]
 
   def index
-    page = params[:page].present? ? params[:page] : 1
-    @tags = Tag.all.paginate(:page => page, :per_page => 20)
-    @res = Paginator.pagination_attributes(@tags).merge!(:tags => @tags)
+    @tags = Tag.all
   end
 
   def create

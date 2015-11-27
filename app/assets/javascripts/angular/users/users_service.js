@@ -3,7 +3,7 @@
 
   angular.module('app.users').factory('usersService', usersService);
 
-  function usersService($http, $q) {
+  function usersService($http, $q, $resource) {
 
     function create(email, password, password_confirmation) {
 
@@ -24,8 +24,15 @@
       return deferred.promise;
     }
 
+    function getUser(user) {
+      return $resource('/api/users/:user_id.json', { user_id: user.user_id }, {
+        query: {isArray: false},
+      });
+    }
+
     return {
-      create: create
+      create: create,
+      getUser: getUser
     };
   }
 

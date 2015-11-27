@@ -1,16 +1,10 @@
 class Api::PostsController < ApiController
   respond_to :json
   before_filter :set_user
-  before_filter :get_post, only: [:update, :destroy]
+  before_filter :get_post, only: [:update, :destroy, :show, :like_post, :dislike_post]
 
   def index
     page = params[:page].present? ? params[:page] : 1
-    if !params[:forum_id].blank?
-      where = "forum_id = #{params[:forum_id]}"
-    end
-    if !params[:tag_id].blank?
-      where = "tag_id = #{params[:tag_id]}"
-    end
     if !params[:forum_id].blank?
       @posts = Post.where(forum_id: params[:forum_id]).paginate(:page => page, :per_page => 20)
     elsif !params[:tag_id].blank?
@@ -19,6 +13,9 @@ class Api::PostsController < ApiController
       @posts = Post.all.paginate(:page => page, :per_page => 20)
     end
     @res = Paginator.pagination_attributes(@posts).merge!(:posts => @posts)
+  end
+
+  def show
   end
 
   def create
@@ -37,7 +34,36 @@ class Api::PostsController < ApiController
     if @post.user == @user
       st = @post.destroy
     end
-    respond_with :api, st
+    status = st ? "success" : "error"
+    render json: {status: status}
+  end
+
+  def like_post
+    st = false
+    user_id = @user.id.to_s
+    if @post.user_dislikes.include? user_id
+      @post.user_dislikes.delete user_id
+    end
+    unless @post.user_likes.include? user_id
+      @post.user_likes << user_id
+      st = @post.save
+    end
+    status = st ? "success" : "error"
+    render json: {status: status}
+  end
+
+  def dislike_post
+    st = false
+    user_id = @user.id.to_s
+    if @post.user_likes.include? user_id
+      @post.user_likes.delete user_id
+    end
+    unless @post.user_dislikes.include? user_id
+      @post.user_dislikes << user_id
+      st = @post.save
+    end
+    status = st ? "success" : "error"
+    render json: {status: status}
   end
 
   private

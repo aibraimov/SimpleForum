@@ -8,9 +8,7 @@ class Api::ForumsController < ApiController
   end
 
   def index
-    page = params[:page].present? ? params[:page] : 1
-    @forums = Forum.all.paginate(:page => page, :per_page => 1000)
-    @res = Paginator.pagination_attributes(@forums).merge!(:forums => @forums)
+    @forums = Forum.all
   end
 
   def create

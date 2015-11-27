@@ -1,35 +1,126 @@
-%div{'ng-controller' => "AnswersController as vm"}
-  %h3 Recent Answers
-  .btn-group{style: "margin-bottom: 10px;"}
-    %label{class: ["btn", "btn-default"], 'ng-model' => "vm.rangeDescriptor", 'btn-radio' => "'all'"} All
-    %label{class: ["btn", "btn-default"], 'ng-model' => "vm.rangeDescriptor", 'btn-radio' => "'today'"} Hot
-    %label{class: ["btn", "btn-default"], 'ng-model' => "vm.rangeDescriptor", 'btn-radio' => "'pastWeek'"} Past Week
-    %label{class: ["btn", "btn-default"], 'ng-model' => "vm.rangeDescriptor", 'btn-radio' => "'pastMonth'"} Past Month
-  %div{class: ["panel", "panel-default", "col-xs-12"]}
-    %div{class: ["row", "panel-heading"]}
-      .col-xs-3 Title
+//there is a post
+%div{'ng-controller' => "PostsController as vm", 'ng-init' => 'vm.getPost()'}
+  %span{'ng-if' => "vm.post != vm.editedPostMarker"}
+    .row
+      .col-xs-12 
+        %h4 {{ vm.post.title }}
+        %hr
+    %br/
+    .row
+      .col-xs-1{style: "text-align: center;"}
+        %button{'ng-click' => "vm.likePost(vm.post);", type: "button", class: "btn btn-success", 'ng-disabled': "vm.post.user_likes.indexOf(vm.user_id) != -1"}
+          %i{class: ["fa", "fa-caret-up", "fa-lg"]}
+        %br/
+        %br/
+        %button{type: "button", class: "btn btn-success"}
+          {{vm.post.user_likes.length - vm.post.user_dislikes.length}}
+        %br/
+        %br/
+        %button{'ng-click' => "vm.dislikePost(vm.post);", type: "button", class: "btn btn-success", 'ng-disabled': "vm.post.user_dislikes.indexOf(vm.user_id) != -1"}
+          %i{class: ["fa", "fa-caret-down", "fa-lg"]}
+      .col-xs-11
+        %p{'ng-bind-html': "vm.post.description | sanitize"}
+    %br/
+    .row
+      .col-xs-1
+        %span{class: ["label", "label-primary"]}{{ vm.post.forum.title }}
+      .col-xs-4
+        %span{'ng-repeat' => "tag in vm.post.tags", class: ["label", "label-warning"], style: "margin-right: 5px;"}
+          %a{'ui-sref'=> "posts.tag({ tagId: tag.id })", style: "color: white;"} {{tag.title}}
+      .col-xs-3{class: "pull-right"}
+        %button{'ng-click' => "vm.edit(vm.post)", type: "button", class: "btn", 'ng-if': "vm.post.user.id == vm.user_id"}
+          %i{class: ["fa", "fa-pencil", "fa-lg"]}
+        %button{'confirmed-click' => "vm.destroy(vm.post);", 'confirm-click' => "Are you sure?", type: "button", class: "btn btn-danger", 'ng-if': "vm.post.user.id == vm.user_id"}
+          %i{class: ["fa", "fa-trash-o", "fa-lg"]}
+        %a{'ui-sref': "users({userId: vm.post.user.id})", class: "pull-right well well-sm", style: "display: block; text-align: center;"}
+          %img{class: "media-object", 'data-src': "holder.js/64x64", alt: "64x64", style: "margin: 0 auto; width: 64px; height: 64px;", src: "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTE0NjUwNWY2MiB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1MTQ2NTA1ZjYyIj48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxMy40NzY1NjI1IiB5PSIzNi41Ij42NHg2NDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==", 'data-holder-rendered': "true"}
+          {{vm.post.user.email}}
+  %span{'ng-if' => "vm.post == vm.editedPostMarker"}
+    %form.form-inline{'ng-submit' => "vm.update()"}
+      %post-form{post: "vm.clonedPost", forums: "vm.forums", tags: "vm.tags"}
       .col-xs-3
+        %button{'ng-click' => "vm.editCancel()", class: "btn"} Cancel
+        %button{type: "submit", class: ["btn", "btn-primary"]} Save
+//here are answers
+%div{'ng-controller' => "AnswersController as vm"}
+  %h3 {{vm.answers.length}} Answers
+  %div{class: ["panel", "panel-default", "col-xs-12"], 'ng-init' => 'vm.getAnswers(1)'}
+    %div{class: ["row", "panel-heading"]}
+      .col-xs-3{class: "pull-right"}
         %button{'ng-click' => "vm.new()", type: "button", class: "btn btn-success"}
-          %i{class: ["fa", "fa-plus-circle", "fa-lg"]} New
+          %i{class: ["fa", "fa-plus-circle", "fa-lg"]} Add answer
     %ul.list-group
       %span{'ng-if' => "vm.newAnswer"}
         %li{class: ["list-group-item", "row"]}
           %form.form-inline{'ng-submit' => "vm.create()"}
-            %answer-form{answer: "vm.newAnswer", forums: "vm.forums"}
+            %answer-form{answer: "vm.newAnswer"}
             .col-xs-3
               %button{'ng-click' => "vm.newCancel()", class: "btn"} Cancel
               %button{type: "submit", class: ["btn", "btn-primary"]} Create
-      %li{'ng-repeat' => "answer in vm.answers | dateRange:'created_at':vm.rangeDescriptor | orderBy: '-created_at'", class: "list-group-item row"}
+      %li{'ng-repeat' => "answer in vm.answers | orderBy: 'created_at'", class: "list-group-item row"}
         %span{'ng-if' => "answer != vm.editedAnswerMarker"}
-          .col-xs-3 {{ answer.title }}
-          .col-xs-3
-            %button{'ng-click' => "vm.edit(answer)", type: "button", class: "btn"}
-              %i{class: ["fa", "fa-pencil", "fa-lg"]}
-            %button{'confirmed-click' => "vm.destroy(answer);", 'confirm-click' => "Are you sure?", type: "button", class: "btn btn-danger"}
-              %i{class: ["fa", "fa-trash-o", "fa-lg"]}
+          .row
+            .col-xs-1{style: "text-align: center;"}
+              %button{'ng-click' => "vm.likeAnswer(answer);", type: "button", class: "btn btn-success", 'ng-disabled': "answer.user_likes.indexOf(vm.user_id) != -1"}
+                %i{class: ["fa", "fa-caret-up", "fa-lg"]}
+              %br/
+              %br/
+              %button{type: "button", class: "btn btn-success"}
+                {{answer.user_likes.length - answer.user_dislikes.length}}
+              %br/
+              %br/
+              %button{'ng-click' => "vm.dislikeAnswer(answer);", type: "button", class: "btn btn-success", 'ng-disabled': "answer.user_dislikes.indexOf(vm.user_id) != -1"}
+                %i{class: ["fa", "fa-caret-down", "fa-lg"]}
+              %br/
+              %br/
+              %button.btn{'ng-click' => "vm.setTrue(answer);", type: "button", 'ng-class': "{'btn-default': answer.is_true == 'false', 'btn-success': answer.is_true == true}", 'ng-disabled': "answer.is_true == true"}
+                %i{class: ["fa", "fa-check", "fa-lg"]}
+            .col-xs-11
+              %p{'ng-bind-html': "answer.title | sanitize"}
+          %br/
+          .row
+            .col-xs-3{class: "pull-right"}
+              %button{'ng-click' => "vm.edit(answer)", type: "button", class: "btn", 'ng-if': "answer.user.id == vm.user_id"}
+                %i{class: ["fa", "fa-pencil", "fa-lg"]}
+              %button{'confirmed-click' => "vm.destroy(answer);", 'confirm-click' => "Are you sure?", type: "button", class: "btn btn-danger", 'ng-if': "answer.user.id == vm.user_id"}
+                %i{class: ["fa", "fa-trash-o", "fa-lg"]}
+              %a{'ui-sref': "users({userId: answer.user.id})", class: "pull-right well well-sm", style: "display: block; text-align: center;"}
+                %img{class: "media-object", 'data-src': "holder.js/64x64", alt: "64x64", style: "margin: 0 auto; width: 64px; height: 64px;", src: "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTE0NjUwNWY2MiB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1MTQ2NTA1ZjYyIj48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxMy40NzY1NjI1IiB5PSIzNi41Ij42NHg2NDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==", 'data-holder-rendered': "true"}
+                {{answer.user.email}}
+
         %span{'ng-if' => "answer == vm.editedAnswerMarker"}
           %form.form-inline{'ng-submit' => "vm.update()"}
             %answer-form{answer: "vm.clonedAnswer"}
             .col-xs-3
               %button{'ng-click' => "vm.editCancel()", class: "btn"} Cancel
               %button{type: "submit", class: ["btn", "btn-primary"]} Save
+        %div{style: "clear: both;"}
+          %hr{style: "border-style: dotted;"}
+          %ul.list-group
+            %li{'ng-repeat' => "comment in answer.comments | orderBy: 'created_at'", class: "list-group-item row"}
+              %span{'ng-if' => "comment != vm.editedCommentMarker"}
+                .col-xs-9{style: "padding-left: 40px;"} {{ comment.title }}
+                .col-xs-3{class: "pull-right"}
+                  %button{'ng-click' => "vm.editComment(comment)", type: "button", class: "btn", 'ng-if': "comment.user.id == vm.user_id"}
+                    %i{class: ["fa", "fa-pencil", "fa-lg"]}
+                  %button{'confirmed-click' => "vm.destroyComment(answer, comment);", 'confirm-click' => "Are you sure?", type: "button", class: "btn btn-danger", 'ng-if': "comment.user.id == vm.user_id"}
+                    %i{class: ["fa", "fa-trash-o", "fa-lg"]}
+                  %a{'ui-sref': "users({userId: vm.comment.user.id})", class: "pull-right", style: "display: block; text-align: center;"}
+                    {{comment.user.email}}
+
+              %span{'ng-if' => "comment == vm.editedCommentMarker"}
+                %form.form-inline{'ng-submit' => "vm.updateComment(answer)"}
+                  %comment-form{comment: "vm.clonedComment"}
+                  .col-xs-3
+                    %button{'ng-click' => "vm.editCommentCancel()", class: "btn"} Cancel
+                    %button{type: "submit", class: ["btn", "btn-primary"]} Save
+              %div{style: "clear: both;"}
+            %span{'ng-if' => "vm.newComment.answer_id == answer.id"}
+              %li{class: ["list-group-item", "row"]}
+                %form.form-inline{'ng-submit' => "vm.createComment(answer)"}
+                  %comment-form{comment: "vm.newComment"}
+                  .col-xs-3
+                    %button{'ng-click' => "vm.newCommentCancel()", class: "btn"} Cancel
+                    %button{type: "submit", class: ["btn", "btn-primary"]} Create
+          %button{'ng-click' => "vm.newCommentCreate(answer)", type: "button", class: "btn btn-success"}
+            %i{class: ["fa", "fa-plus-circle", "fa-sm"]} New comment

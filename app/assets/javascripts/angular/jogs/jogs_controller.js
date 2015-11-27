@@ -16,7 +16,7 @@
       var now = new Date();
       vm.newJog = {
         'start_time': now
-      }
+      };
     };
 
     vm.newCancel = function () {

@@ -1,2 +1,12 @@
-.col-xs-3
-	%input.form-control{type: "text", 'ng-model'=> "answer.title", required: true}/
+.col-xs-12
+	%div{ckeditor: "options", 'ng-model': "answer.title"}
+%br{style: "clear: both;"}/
+%div{style: "padding: 20px; margin-top: 10px;clear:"}
+	%figure{class: ["well", "well-lg"]}
+		.row
+		%h4 
+			%b This is how it will look
+		.row
+			.col-xs-12
+				%p{'ng-bind-html': "answer.title | sanitize"}
+				%hr

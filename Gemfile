@@ -14,6 +14,7 @@ gem 'bson_ext'
 gem 'kaminari'
 gem 'will_paginate_mongoid'
 gem 'font-awesome-rails'
+gem 'ckeditor_rails'
 
 # Use SCSS for stylesheets
 gem 'sass-rails'
