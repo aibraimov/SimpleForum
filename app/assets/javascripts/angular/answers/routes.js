@@ -28,6 +28,7 @@
         }]
       }
     });
+    $urlRouterProvider.otherwise('/posts');
   }
 
 })();
