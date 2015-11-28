@@ -38,4 +38,7 @@ angular.module('app.answers', [
 
 angular.module('app.login', []);
 angular.module('app.report', []);
-angular.module('app.users', []);
+angular.module('app.users', [
+    'ngResource',
+    'ngFileUpload'
+]);

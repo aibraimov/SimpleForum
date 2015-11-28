@@ -13,6 +13,7 @@ json.posts @posts do |post|
   json.user do
     json.email post.user.email
     json.id post.user.id.to_s
+    json.avatar post.user.avatar
   end
   json.tags post.tags do |tag|
   	json.extract! tag, :title, :description, :_id

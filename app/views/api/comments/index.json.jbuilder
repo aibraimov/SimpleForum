@@ -4,5 +4,6 @@ json.answers @comments do |comment|
   json.user do
     json.email comment.user.email
     json.id comment.user.id.to_s
+    json.avatar comment.user.avatar
   end
 end

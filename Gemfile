@@ -9,6 +9,8 @@ gem 'thin'
 # Use sqlite3 as the database for Active Record
 #gem 'pg'
 gem 'mongoid', '5.0.1'
+gem "mongoid-paperclip", :require => "mongoid_paperclip"
+gem 'aws-sdk', '~> 1.3.4'
 gem 'devise'
 gem 'themes_on_rails'
 gem 'liquid-rails'

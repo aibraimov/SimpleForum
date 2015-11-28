@@ -27,6 +27,7 @@
 //= require angular-ui-bootstrap-tpls
 //= require angular-ckeditor/angular-ckeditor.min.js
 //= require angular-sanitize/angular-sanitize.min.js
+//= require ng-file-upload/ng-file-upload-all.min.js
 //= require vendor
 //= require angular/app.module
 //= require_tree .

@@ -1,5 +1,12 @@
 %div{'ng-controller' => "UsersController as vm"}
-	%img{class: "media-object", 'data-src': "holder.js/64x64", alt: "64x64", style: "float: left; margin-right: 10px; width: 64px; height: 64px;", src: "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTE0NjUwNWY2MiB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1MTQ2NTA1ZjYyIj48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxMy40NzY1NjI1IiB5PSIzNi41Ij42NHg2NDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==", 'data-holder-rendered': "true"}
+	%div{style: "float: left; margin-right: 10px; width: 64px; height: 64px;position: relative;"}
+		%img{alt: "64x64", style: "float: left; margin-right: 10px; width: 64px; height: 64px;", src: "{{vm.user.avatar}}", 'data-holder-rendered': "true"}
+		%div{style: "cursor: pointer; background: rgba(0,0,0,0.3); height: 20px; position: absolute; bottom: 0; width: 100%; text-align: center; color: white;", 'ng-if': "vm.user_id == vm.user.id", 'ng-click': "vm.uploadClick()"} upload
+		%div{style: "clear: both"}
+		%form{name:"myForm", style: "float: left;margin: 0; padding: 0;"}
+			%fieldset{style: "float: left;margin: 0; padding: 0;"}
+				%input#avatar_upload{type:"file", 'ngf-select': "", 'ng-model': "vm.picFile", name: "file", accept: "image/*", 'ngf-max-size': "2MB", required: "", style: "visibility: hidden;width:0;height:0;"}
+				%button{'ng-disabled': "!myForm.$valid", 'ng-show': "vm.picFile", 'ng-click': "vm.uploadPic(vm.picFile)"} Submit
 	%span{style: "padding: 20px 0 0 10px; font-size: 20px;"} {{vm.user.email}}
 	%br
 	%button.btn.btn-primary{type: "button"} 
@@ -9,7 +16,7 @@
 		%i{class: ["fa", "fa-star", "fa-lg"]}
 		{{vm.user.rating}}
 
-	%div{style: "clear: both"}
+	%div{style: "clear: both;margin-top: 20px;"}
 	.row
 		.col-xs-6
 			%h4 Questions

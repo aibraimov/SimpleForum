@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   namespace :api do
-    resources :users, only: [:create, :show] do
+    resources :users, only: [:create, :show, :update] do
       resources :jogs, only: [:index, :create, :update, :destroy, :show]
       resources :forums, only: [:index, :create, :update, :destroy, :show]
       resources :posts, only: [:index, :create, :update, :destroy, :show]
