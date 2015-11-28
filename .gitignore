@@ -13,6 +13,7 @@
 /log/development.sphinx.pid
 /tmp
 /public
+/public/images
 /tmp/*
 /config/environment.rb
 # Ignore other unneeded files.
