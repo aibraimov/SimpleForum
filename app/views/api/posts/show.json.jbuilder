@@ -8,7 +8,7 @@ end
 json.user do
 	json.email @post.user.email
 	json.id @post.user.id.to_s
-    json.avatar @post.user.avatar
+    json.avatar @post.user.avatar.url(:small)
 end
 json.tags @post.tags do |tag|
 	json.extract! tag, :title, :description, :_id

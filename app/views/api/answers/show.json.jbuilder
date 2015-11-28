@@ -2,7 +2,7 @@ json.extract! @answer, :title, :created_at, :updated_at, :_id, :user_likes, :use
 json.user do
 	json.email @answer.user.email
 	json.id @answer.user.id.to_s
-    json.avatar answer.user.avatar
+    json.avatar answer.user.avatar.url(:small)
 end
 json.comments @answer.comments do |comment|
 	json.extract! comment, :title, :created_at, :updated_at, :_id
@@ -10,7 +10,7 @@ json.comments @answer.comments do |comment|
     json.user do
       json.email comment.user.email
       json.id comment.user.id.to_s
-	  json.avatar comment.user.avatar
+	  json.avatar comment.user.avatar.url(:small)
     end
 end
 json.post_user_id @answer.post.user.id.to_s

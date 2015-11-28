@@ -1,4 +1,5 @@
-json.extract! @user, :email, :created_at, :updated_at, :_id, :rating, :avatar
+json.extract! @user, :email, :created_at, :updated_at, :_id, :rating
+json.avatar @user.avatar.url(:small)
 json.user_posts_num @user.posts.size
 json.id @user.id.to_s
 user_tags = []
