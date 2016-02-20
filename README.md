@@ -1,6 +1,5 @@
-# Example Rails + Angular Js (ngResource) + Boostrap app.
-
-November 26th, 2014
+# SimpleForum
+Simple Stack Overflow Like Forum
 
 I created this while exploring a quick way to build a client-side app in AngularJs, while using Rails as a
 RESTful API backend.
